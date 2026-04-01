@@ -1,0 +1,16 @@
+config-version: 1
+
+# Blocks reportable/signed chat path by rewriting outgoing player chat packets.
+block-chat-reports: true
+
+# Controls secure-chat indicators in login/status packets.
+show-popup: false
+
+# Cancels the PLAYER_CHAT_HEADER packet.
+send-header: false
+
+# Enables PacketEvents debug mode.
+debug: false
+
+# Log one warning per client version if chat rewrite cannot be applied.
+log-compatibility-warnings: true
