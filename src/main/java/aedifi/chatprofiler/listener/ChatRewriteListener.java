@@ -7,6 +7,7 @@ import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.chat.ChatType;
 import com.github.retrooper.packetevents.protocol.chat.message.ChatMessage;
 import com.github.retrooper.packetevents.protocol.chat.message.ChatMessage_v1_19_1;
+import com.github.retrooper.packetevents.protocol.chat.message.ChatMessage_v1_19_3;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatMessage;
@@ -51,7 +52,10 @@ public final class ChatRewriteListener implements PacketListener {
             Component content = message.getChatContent();
             ChatType.Bound chatFormatting = null;
 
-            if (message instanceof ChatMessage_v1_19_1 signedMessage) {
+            if (message instanceof ChatMessage_v1_19_3 modernMessage) {
+                content = modernMessage.getUnsignedChatContent().orElse(content);
+                chatFormatting = modernMessage.getChatFormatting();
+            } else if (message instanceof ChatMessage_v1_19_1 signedMessage) {
                 if (signedMessage.getUnsignedChatContent() != null) {
                     content = signedMessage.getUnsignedChatContent();
                 }
